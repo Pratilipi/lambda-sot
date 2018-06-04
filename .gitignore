@@ -1,0 +1,11 @@
+*.pyc
+venv
+.venv
+venv/
+venv/*
+*/migrations/*
+*/venv/*
+*.sock
+env
+.env
+env/*
