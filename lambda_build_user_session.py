@@ -56,5 +56,3 @@ def lambda_handler(event, context):
 
         print "info:: message sent, sot_id: {}".format(request['sot_id'])
     return
-
-lambda_handler(event, context=None)
