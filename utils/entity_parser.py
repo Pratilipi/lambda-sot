@@ -12,7 +12,7 @@ def parse(request):
     for r in routes.author:
         m = re.search(r, request['path'])
         if m is not None:
-            print "found something"
+            print "info:: path matched"
             entities = {'author': m.groups()[0]}
             break
         
