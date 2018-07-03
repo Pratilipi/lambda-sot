@@ -103,7 +103,7 @@ def user_fcm_token_map_item():
     return item
 
 def entity_user_map_item():
-    entity_id = "{}.{}".format('author', 6755388384513935)
+    entity_id = "{}.{}".format('author', 4703703083778048)
     item = {
         'entity_id': entity_id,
         'last_updated': int(time.time()),
