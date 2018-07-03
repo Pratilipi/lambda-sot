@@ -9,6 +9,6 @@ def lambda_handler(event, context):
     """
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('user_fcm_token_map')
-    item = {'user_id': , 'token': , 'last_updated': int(time.time())}
+    item = {'user_id': event['user_id'], 'token': event['token'], 'last_updated': int(time.time())}
     table.put_item(Item=item)
     return
