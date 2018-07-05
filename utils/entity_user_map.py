@@ -5,7 +5,7 @@ from boto3.dynamodb.conditions import Key, Attr
 
 def put_item(user_id, entities):
     """
-    build and store item for user session map
+    build and store item for entity user map
     """
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('entity_user_map')
