@@ -22,6 +22,8 @@ def get_tokens(entities):
             temp = set(item for item in response['Item']['user_ids'])
             all_user_ids = all_user_ids.union(temp)
 
+        print "-----> {}".format(entities, all_user_ids)
+
         if len(list(all_user_ids)) == 0:
             print "info:: no fcm token found"
             return []
@@ -30,6 +32,7 @@ def get_tokens(entities):
         table = dynamodb.Table('user_fcm_token_map')
         response = table.scan(FilterExpression=Attr('user_id').is_in(all_user_ids))
         temp = [item['token'] for item in response['Items']]
+        print "---------> {}".format(temp)
         print "info:: found fcm token"
         return temp
     except Exception as err:
