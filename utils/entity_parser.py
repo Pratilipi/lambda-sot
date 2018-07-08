@@ -6,14 +6,17 @@ def parse(request):
     """
     parse request and identify entities
     """
-    entities = None
-    
-    # author
-    for r in routes.author:
-        m = re.search(r, request['path'])
-        if m is not None:
-            print "info:: path matched"
-            entities = {'author': m.groups()[0]}
-            break
+    try:
+        entities = None
         
-    return 'META', entities
+        # author
+        for r in routes.author:
+            m = re.search(r, request['path'])
+            if m is not None:
+                entities = {'author': m.groups()[0]}
+                break
+            
+        return 'META', entities
+    except Exception as err:
+        print "error:: request path parsing failed, {}".format(err)
+        return None, None
