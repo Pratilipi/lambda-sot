@@ -20,6 +20,5 @@ def send_message(msg_id, msg_type, registration_tokens, entities):
             data1['meta_id'] = entities[entity][0]
             message = messaging.Message(data=data1, token=registration_tokens[0])
             messaging.send(message)
-            print "info:: sent for - {}".format(entity)
     except Exception as err:
         print "error: failed while sending message to fcm, {}".format(err)
