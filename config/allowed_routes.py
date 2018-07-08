@@ -1,8 +1,13 @@
 # author entity
 author = []
 
-# PATCH
+# GET
+#author.append('/authors')
+
+# GET and PATCH
 author.append('/authors/(\d{16})')
+
+# PATCH
 author.append('/authors/(\d{16})/profile_image')
 author.append('/authors/(\d{16})/update_facts')
 
