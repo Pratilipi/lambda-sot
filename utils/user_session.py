@@ -12,7 +12,7 @@ def put_item(user_id, entities):
         item = {'user_id': user_id}
         item = dict(item.items() + entities.items())
         table.put_item(Item=item)
-        print "added record to user_session_map, {}".format(item)
     except Exception as err:
         print "error:: while adding in user_session_map, {}".format(err)
+        raise
     return
