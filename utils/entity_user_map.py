@@ -17,11 +17,9 @@ def put_item(user_id, entities):
                 Key={ 'entity_id': entity_id },
                 UpdateExpression='SET user_ids = list_append(user_ids, :val1), last_updated = :val2',
                 ExpressionAttributeValues={ ':val1': [user_id], ':val2': int(time.time()) })
-            print "info:: appended record to entity_user_map"
         except Exception as e:
             table.update_item(
                 Key={ 'entity_id': entity_id },
                 UpdateExpression="set user_ids = :val1, last_updated = :val2",
                 ExpressionAttributeValues={ ':val1': [user_id], ':val2': int(time.time()) })
-            print "info:: added record to entity_user_map"
     return
