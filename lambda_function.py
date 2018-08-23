@@ -19,6 +19,7 @@ def lambda_handler(event, context):
 
     request = event['Records'][0]['dynamodb']['NewImage']
     sot_id = request['sot_id']['S']
+    client_version = request['clientVersion']['S']
 
     # check for mandatory param
     if request.get('user_id', None) is None:
@@ -47,8 +48,6 @@ def lambda_handler(event, context):
         'body': body,
     }
 
-    print "paths ->>>>>>> {}".format(request['path']['S'])
-
     try:
         msg_type, entities = entity_parser.parse(request_details)
 
@@ -61,6 +60,10 @@ def lambda_handler(event, context):
 
         # store entity user map
         entity_user_map.put_item(user_id, entities)
+
+        if client_version < "1.2.16.0":
+            print "info:: version incompatible, sot_id: {}".format(sot_id)
+            return
 
         # get fcm tokens to send message
         registration_tokens = user_tokens.get_tokens(entities)
