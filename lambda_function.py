@@ -20,6 +20,7 @@ def lambda_handler(event, context):
     request = event['Records'][0]['dynamodb']['NewImage']
     sot_id = request['sot_id']['S']
     client_version = request['clientVersion']['S']
+    client = request['client']['S']
 
     # check for mandatory param
     if request.get('user_id', None) is None:
@@ -61,8 +62,12 @@ def lambda_handler(event, context):
         # store entity user map
         entity_user_map.put_item(user_id, entities)
 
+        if client != "ANDROID":
+            print "info:: only applicable for android, sot_id: {}, ver: {}, client: {}".format(sot_id, client_version, client)
+            return
+
         if client_version < "1.2.16.0":
-            print "info:: version incompatible, sot_id: {}".format(sot_id)
+            print "info:: version incompatible, sot_id: {}, ver: {}, client: {}".format(sot_id, client_version, client)
             return
 
         # get fcm tokens to send message
@@ -75,7 +80,7 @@ def lambda_handler(event, context):
         # send data msg via firebase
         sender.send_message(sot_id, msg_type, registration_tokens, entities)
 
-        print "info:: successfully processed, sot_id: {}".format(sot_id)
+        print "info:: successfully processed, sot_id: {}, ver: {}, client: {}".format(sot_id, client_version, client)
     except Exception as err:
         print "error:: failed, sot_id: {}".format(sot_id)
     return
